@@ -53,12 +53,12 @@ The release artifacts will be uploaded into a staging directory on Sonatype OSS.
 If you do not configure Maven with your server passwords, the Maven deploy plugin will run into a 401 Unauthorized error.
 Steps below were taken from [this guide.](https://maven.apache.org/guides/mini/guide-encryption.html)
 
-*   Create a master password: `mvn --encrypt-master-password`
-*   Add the master password to `$HOME/.m2/settings-security.xml`
+*   Create and encrypt a master password: `mvn --encrypt-master-password <your-master-password>`
+*   Add the encrypted master password to `$HOME/.m2/settings-security.xml`
 
 ```xml
 <settingsSecurity>
-  <master>{master passsword}</master>
+  <master>{encrypted master passsword}</master>
 </settingsSecurity>
 ```
 
@@ -172,6 +172,7 @@ Update version-sensitive files in the root and documentation sources in the `doc
 *   `docs/versions.adoc`
 *   `docs/upgrade.adoc`
 *   `docs/xsl/common.xsl`
+*   `docs/doc-versions.adoc`
 
 You may also need to update the following files in the main repo for any new or updated dependencies:
 
