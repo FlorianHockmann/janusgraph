@@ -136,6 +136,7 @@
         <module>janusgraph-inmemory</module>
         <module>janusgraph-berkeleyje</module>
         <module>janusgraph-cql</module>
+        <module>janusgraph-scylla</module>
         <module>janusgraph-hadoop</module>
         <module>janusgraph-hbase-parent</module>
         <module>janusgraph-bigtable</module>
