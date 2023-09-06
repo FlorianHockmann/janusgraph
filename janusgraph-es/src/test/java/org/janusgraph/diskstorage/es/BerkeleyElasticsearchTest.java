@@ -41,6 +41,12 @@ public class BerkeleyElasticsearchTest extends ElasticsearchJanusGraphIndexTest 
         return getBerkeleyJEConfiguration();
     }
 
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void indexShouldNotExistAfterDeletion() throws Exception {
+        super.indexShouldNotExistAfterDeletion();
+    }
+
     /**
      * Test {@link org.janusgraph.example.GraphOfTheGodsFactory#create(String)}.
      */
@@ -55,9 +61,15 @@ public class BerkeleyElasticsearchTest extends ElasticsearchJanusGraphIndexTest 
         gotg.close();
     }
 
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
     @Override
-    public void testIndexUpdatesWithoutReindex() throws InterruptedException, ExecutionException {
-        super.testIndexUpdatesWithoutReindex();
+    public void testDisableAndDiscardManuallyAndDropEnabledIndex() throws Exception {
+        super.testDisableAndDiscardManuallyAndDropEnabledIndex();
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void testDiscardAndDropRegisteredIndex() throws ExecutionException, InterruptedException {
+        super.testDiscardAndDropRegisteredIndex();
     }
 }

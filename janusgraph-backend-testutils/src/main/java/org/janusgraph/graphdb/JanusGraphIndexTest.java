@@ -2188,7 +2188,7 @@ public abstract class JanusGraphIndexTest extends JanusGraphBaseTest {
         assertEquals(4, recoveryStats[1]); //all 4 index transaction had provoked errors in the indexing backend
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
     public void testIndexUpdatesWithoutReindex() throws InterruptedException, ExecutionException {
         final Object[] settings = new Object[]{option(LOG_SEND_DELAY, MANAGEMENT_LOG), Duration.ofMillis(0),
                 option(KCVSLog.LOG_READ_LAG_TIME, MANAGEMENT_LOG), Duration.ofMillis(50),

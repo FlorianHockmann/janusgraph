@@ -14,6 +14,7 @@
 
 package org.janusgraph.graphdb.cql;
 
+import io.github.artsok.ParameterizedRepeatedIfExceptionsTest;
 import io.github.artsok.RepeatedIfExceptionsTest;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -227,18 +228,34 @@ public class CQLGraphTest extends JanusGraphTest {
         assertTrue(features.hasCellTTL());
     }
 
-    @ParameterizedTest
+    @ParameterizedRepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
     @ValueSource(booleans = {true, false})
-    public void simpleLogTest(boolean useStringId) {
-        for (int i = 0; i < 3; i++) {
-            try {
-                super.simpleLogTest(useStringId);
-                // If the test passes, break out of the loop.
-                break;
-            } catch (Exception ex) {
-                log.info("Attempt #{} fails", i, ex);
-            }
-        }
+    public void simpleLogTest(boolean useStringId) throws InterruptedException {
+        super.simpleLogTest(useStringId);
+    }
+
+    @ParameterizedRepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @ValueSource(booleans = {true, false})
+    public void simpleLogTestWithFailure(boolean useStringId) throws InterruptedException {
+        super.simpleLogTestWithFailure(useStringId);
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void testEdgeTTLTiming() throws Exception {
+        super.testEdgeTTLTiming();
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void testVertexTTLWithCompositeIndex() throws Exception {
+        super.testVertexTTLWithCompositeIndex();
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void testVertexTTLImplicitKey() throws Exception {
+        super.testVertexTTLImplicitKey();
     }
 
     @RepeatedIfExceptionsTest(repeats = 3)

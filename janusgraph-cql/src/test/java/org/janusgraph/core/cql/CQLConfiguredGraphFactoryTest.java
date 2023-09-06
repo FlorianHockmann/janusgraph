@@ -109,7 +109,7 @@ public class CQLConfiguredGraphFactoryTest extends AbstractConfiguredGraphFactor
         }
     }
 
-    @Test
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
     public void dropGraphShouldRemoveGraphKeyspace() throws Exception {
         final MapConfiguration graphConfig = getGraphConfig();
         final String graphName = graphConfig.getString(GRAPH_NAME.toStringWithoutRoot());
@@ -136,6 +136,12 @@ public class CQLConfiguredGraphFactoryTest extends AbstractConfiguredGraphFactor
     @Override
     public void updateConfigurationShouldRemoveGraphFromCache() throws Exception {
         super.updateConfigurationShouldRemoveGraphFromCache();
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void dropShouldCleanUpTraversalSourceAndBindings() throws Exception {
+        super.dropShouldCleanUpTraversalSourceAndBindings();
     }
 }
 

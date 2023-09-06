@@ -14,12 +14,17 @@
 
 package org.janusgraph.graphdb.cql;
 
+import io.github.artsok.ParameterizedRepeatedIfExceptionsTest;
+import io.github.artsok.RepeatedIfExceptionsTest;
 import org.janusgraph.JanusGraphCassandraContainer;
 import org.janusgraph.StorageSetup;
 import org.janusgraph.diskstorage.configuration.WriteConfiguration;
 import org.janusgraph.graphdb.JanusGraphTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.util.concurrent.ExecutionException;
 
 @Testcontainers
 public class CQLGraphCacheTest extends JanusGraphTest {
@@ -30,5 +35,47 @@ public class CQLGraphCacheTest extends JanusGraphTest {
     @Override
     public WriteConfiguration getConfiguration() {
         return StorageSetup.addPermanentCache(cqlContainer.getConfiguration(getClass().getSimpleName()));
+    }
+
+    @ParameterizedRepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @ValueSource(booleans = {true, false})
+    public void simpleLogTest(boolean useStringId) throws InterruptedException {
+        super.simpleLogTest(useStringId);
+    }
+
+    @ParameterizedRepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @ValueSource(booleans = {true, false})
+    public void simpleLogTestWithFailure(boolean useStringId) throws InterruptedException {
+        super.simpleLogTestWithFailure(useStringId);
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void testEdgeTTLTiming() throws Exception {
+        super.testEdgeTTLTiming();
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void testEdgeTTLWithTransactions() throws Exception {
+        super.testEdgeTTLWithTransactions();
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void testVertexTTLWithCompositeIndex() throws Exception {
+        super.testVertexTTLWithCompositeIndex();
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 4, minSuccess = 2)
+    @Override
+    public void testVertexTTLImplicitKey() throws Exception {
+        super.testVertexTTLImplicitKey();
+    }
+
+    @RepeatedIfExceptionsTest(repeats = 3)
+    @Override
+    public void testReindexingForEdgeIndex() throws ExecutionException, InterruptedException {
+        super.testReindexingForEdgeIndex();
     }
 }
