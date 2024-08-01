@@ -64,6 +64,10 @@
                     <groupId>com.datastax.oss</groupId>
                     <artifactId>java-driver-query-builder</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.datastax.cassandra</groupId>
+                    <artifactId>cassandra-driver-core</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
